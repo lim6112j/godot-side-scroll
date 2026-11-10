@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_crab.gd" id="1_crab"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crab"]
+size = Vector2(32, 24)
+
+[node name="EnemyCrab" type="CharacterBody2D"]
+script = ExtResource("1_crab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_crab")
+
+[node name="Shell" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-16, -2, -14, -9, -8, -13, 0, -14, 8, -13, 15, -8, 16, 0, 12, 3, 4, 5, -6, 5, -13, 2)
+color = Color(0.788235, 0.839216, 0.886275, 1)
+
+[node name="ShellShadow" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-13, 2, -6, 5, 4, 5, 12, 3, 8, 6, -8, 6)
+color = Color(0.498039, 0.658824, 0.752941, 1)
+
+[node name="Claw" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(14, -6, 22, -8, 26, -4, 24, 2, 18, 4, 14, 2)
+color = Color(0.498039, 0.658824, 0.752941, 1)
+
+[node name="Eye" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(11, -10, 13.5, -10, 13.5, -7.5, 11, -7.5)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="LegNear" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-2, 4, 0, 4, 2, 12, 0, 12)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="LegFar" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(8, 4, 10, 4, 12, 11, 10, 11)
+color = Color(0.168627, 0.227451, 0.278431, 1)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/iceberg.gd" id="1_iceberg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ice"]
+size = Vector2(160, 120)
+
+[node name="Iceberg" type="Area2D"]
+script = ExtResource("1_iceberg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ice")
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-80, 60, -80, -60, 80, -60, 80, 60)
+color = Color(0.85, 0.93, 1, 1)
+
+[node name="Ridge" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-80, 60, -46, -8, -12, -42, 26, -60, 54, -30, 80, 60)
+color = Color(0.72, 0.85, 0.96, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

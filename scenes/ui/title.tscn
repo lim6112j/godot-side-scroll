@@ -1,0 +1,43 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="Title" type="CanvasLayer"]
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.098, 0.145, 0.78)
+
+[node name="Box" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -70.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Box"]
+layout_mode = 2
+text = "아기 물범, 엄마를 찾아서"
+horizontal_alignment = 1
+
+[node name="GuideLabel" type="Label" parent="Box"]
+layout_mode = 2
+text = "이동: ← → 또는 A D
+점프: 스페이스 / W / ↑
+꼬리치기: J 또는 Z
+일시정지: Esc
+재시도: R"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Box"]
+layout_mode = 2
+text = "시작"

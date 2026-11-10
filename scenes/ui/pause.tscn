@@ -1,0 +1,39 @@
+[gd_scene load_steps=1 format=3]
+
+[ext_resource type="Script" path="res://scripts/pause_overlay.gd" id="1_pause"]
+
+[node name="Pause" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_pause")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.098, 0.145, 0.78)
+
+[node name="Box" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -70.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="PauseLabel" type="Label" parent="Box"]
+layout_mode = 2
+text = "일시정지"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Box"]
+process_mode = 3
+layout_mode = 2
+text = "계속"

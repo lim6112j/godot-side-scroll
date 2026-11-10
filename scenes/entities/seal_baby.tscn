@@ -1,0 +1,489 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/seal_baby.gd" id="1_seal"]
+[ext_resource type="Script" path="res://scripts/seal_anim.gd" id="2_anim"]
+[ext_resource type="Script" path="res://scripts/seal_swat.gd" id="3_swat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_seal"]
+size = Vector2(48, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swat"]
+size = Vector2(44, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(56, 40)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(1, 1), Vector2(1.04, 0.96), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HeadPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, -0.06, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TailPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.08, -0.05, 0.08]
+}
+
+[sub_resource type="Animation" id="Animation_run"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transition": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0, 0),
+"values": [Vector2(1, 1), Vector2(1.06, 0.92), Vector2(1, 1), Vector2(1.06, 0.92), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyPivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transition": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0, 0),
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 0), Vector2(0, 2), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlipperFrontPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [-0.61, 0.61, -0.61]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FlipperBackPivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.61, -0.61, 0.61]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TailPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.12, -0.12, 0.12]
+}
+
+[sub_resource type="Animation" id="Animation_jump"]
+resource_name = "jump"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(0.85, 1.15), Vector2(1, 1), Vector2(0.9, 1.05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyPivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TailPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, -0.5, -0.35]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FlipperFrontPivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, -0.7, -0.5]
+}
+
+[sub_resource type="Animation" id="Animation_fall"]
+resource_name = "fall"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(1.1, 0.92), Vector2(1, 1), Vector2(1.06, 0.96)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TailPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, 0.45, 0.3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlipperFrontPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, 0.6, 0.4]
+}
+
+[sub_resource type="Animation" id="Animation_swat"]
+resource_name = "swat"
+length = 0.32
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TailPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.32),
+"transition": PackedFloat32Array(1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0),
+"values": [0.0, -1.745, 1.222, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlipperBackPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.32),
+"transition": PackedFloat32Array(1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0),
+"values": [0.0, -0.4, 0.8, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodyPivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.32),
+"transition": PackedFloat32Array(1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0),
+"values": [Vector2(0, 0), Vector2(-2, 0), Vector2(3, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BodyPivot:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.32),
+"transition": PackedFloat32Array(1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0),
+"values": [Vector2(1, 1), Vector2(0.95, 1.05), Vector2(1.08, 0.94), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hurt"]
+resource_name = "hurt"
+length = 0.36
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.12, 0.24, 0.36),
+"transition": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0, 0),
+"values": [1.0, 0.25, 1.0, 0.25, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HeadPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transition": PackedFloat32Array(1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0),
+"values": [0.0, 0.35, -0.1, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodyPivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.36),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(0, 0), Vector2(-4, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_seal"]
+_data = {
+&"fall": SubResource("Animation_fall"),
+&"hurt": SubResource("Animation_hurt"),
+&"idle": SubResource("Animation_idle"),
+&"jump": SubResource("Animation_jump"),
+&"run": SubResource("Animation_run"),
+&"swat": SubResource("Animation_swat")
+}
+
+[node name="BabySeal" type="CharacterBody2D"]
+script = ExtResource("1_seal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_seal")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+monitoring = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="SealAnim" type="Node" parent="."]
+script = ExtResource("2_anim")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SealAnim"]
+root_node = NodePath("../..")
+callback_mode_process = 1
+libraries = {
+"": SubResource("AnimationLibrary_seal")
+}
+
+[node name="SealSwat" type="Node2D" parent="."]
+script = ExtResource("3_swat")
+
+[node name="SwatHitbox" type="Area2D" parent="SealSwat"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SealSwat/SwatHitbox"]
+shape = SubResource("RectangleShape2D_swat")
+
+[node name="BodyPivot" type="Node2D" parent="."]
+
+[node name="VisualSlot" type="Node2D" parent="BodyPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="BodyPivot/VisualSlot"]
+
+[node name="BodyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Body" type="Polygon2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
+color = Color(0.909804, 0.933333, 0.94902, 1)
+
+[node name="BodyShadow" type="Polygon2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(-22, -3, -18, 8, -8, 13, 4, 14, 12, 12, 8, 9, -4, 8, -14, 3)
+color = Color(0.662745, 0.737255, 0.796078, 1)
+
+[node name="BellyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(-20, 4, -19, 10, -14, 15, -4, 17, 8, 17, 18, 14, 23, 9, 24, 4, 21, 1, 10, 0, -4, 0, -15, 2)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Belly" type="Polygon2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(-20, 4, -19, 10, -14, 15, -4, 17, 8, 17, 18, 14, 23, 9, 24, 4, 21, 1, 10, 0, -4, 0, -15, 2)
+color = Color(0.984314, 0.992157, 1, 1)
+
+[node name="HeadPivot" type="Node2D" parent="."]
+position = Vector2(0, -18)
+
+[node name="VisualSlot" type="Node2D" parent="HeadPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="HeadPivot/VisualSlot"]
+
+[node name="HeadOutline" type="Line2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Head" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
+color = Color(0.909804, 0.933333, 0.94902, 1)
+
+[node name="HeadShadow" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(-3, -5, 0, -2, 8, -2, 14, -4, 10, -7, 2, -7)
+color = Color(0.662745, 0.737255, 0.796078, 1)
+
+[node name="Eye" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(8.5, -14, 8.03, -12.25, 6.75, -10.97, 5, -10.5, 3.25, -10.97, 1.97, -12.25, 1.5, -14, 1.97, -15.75, 3.25, -17.03, 5, -17.5, 6.75, -17.03, 8.03, -15.75)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="EyeHighlight" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(5.3, -15, 5.13, -14.35, 4.65, -13.87, 4, -13.7, 3.35, -13.87, 2.87, -14.35, 2.7, -15, 2.87, -15.65, 3.35, -16.13, 4, -16.3, 4.65, -16.13, 5.13, -15.65)
+color = Color(0.984314, 0.992157, 1, 1)
+
+[node name="Nose" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(25.5, -9, 24.67, -10.25, 23.25, -11.67, 23, -12.5, 22.75, -11.67, 21.34, -10.25, 20.5, -9, 21.34, -7.75, 22.75, -6.34, 23, -6.5, 23.25, -6.34, 24.67, -7.75)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Blush" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(19, -4, 18.83, -2.59, 17.66, -2.41, 13.17, -2.59, 12, -4, 13.17, -5.41, 16, -5.59, 18.83, -5.41)
+color = Color(0.94902, 0.635294, 0.635294, 1)
+
+[node name="Whisker1" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -13, 44, -12, 44, -10.8, 20, -11.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Whisker2" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -10, 43, -6, 43, -4.8, 20, -8.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Whisker3" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -7, 42, -2, 42, -0.8, 20, -5.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="TailPivot" type="Node2D" parent="."]
+position = Vector2(-20, 4)
+
+[node name="VisualSlot" type="Node2D" parent="TailPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="TailPivot/VisualSlot"]
+
+[node name="TailOutline" type="Line2D" parent="TailPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(0, -7, -12, -13, -26, -12, -37, -5, -40, 0, -37, 5, -26, 11, -12, 12, -4, 2, 0, 7)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Tail" type="Polygon2D" parent="TailPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(0, -7, -12, -13, -26, -12, -37, -5, -40, 0, -37, 5, -26, 11, -12, 12, -4, 2, 0, 7)
+color = Color(0.909804, 0.933333, 0.94902, 1)
+
+[node name="FlipperFrontPivot" type="Node2D" parent="."]
+position = Vector2(6, 2)
+
+[node name="VisualSlot" type="Node2D" parent="FlipperFrontPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="FlipperFrontPivot/VisualSlot"]
+
+[node name="FlipperFrontOutline" type="Line2D" parent="FlipperFrontPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="FlipperFront" type="Polygon2D" parent="FlipperFrontPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)
+color = Color(0.788235, 0.839216, 0.886275, 1)
+
+[node name="FlipperBackPivot" type="Node2D" parent="."]
+position = Vector2(4, 2)
+
+[node name="VisualSlot" type="Node2D" parent="FlipperBackPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="FlipperBackPivot/VisualSlot"]
+
+[node name="FlipperBackOutline" type="Line2D" parent="FlipperBackPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(0, -3, -7, -2, -15, 1, -20, 6, -17, 10, -9, 11, -2, 9, 1, 4)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="FlipperBack" type="Polygon2D" parent="FlipperBackPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(0, -3, -7, -2, -15, 1, -20, 6, -17, 10, -9, 11, -2, 9, 1, 4)
+color = Color(0.662745, 0.737255, 0.796078, 1)
+
+[connection signal="body_entered" from="SealSwat/SwatHitbox" to="SealSwat" method="_on_body_entered"]
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/hazard_ice_block.gd" id="1_block"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_block"]
+size = Vector2(32, 100)
+
+[node name="IceBlock" type="StaticBody2D" groups=["swat_target"]]
+script = ExtResource("1_block")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_block")
+
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-16, -50, 16, -50, 16, 50, -16, 50)
+color = Color(0.75, 0.87, 0.97, 1)
+
+[node name="CrackDiagonal" type="Line2D" parent="."]
+points = PackedVector2Array(-16, -18, -4, -2, 6, 10, 16, 26)
+width = 2.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="CrackShort" type="Line2D" parent="."]
+points = PackedVector2Array(-2, -50, 4, -34, -6, -22)
+width = 2.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)

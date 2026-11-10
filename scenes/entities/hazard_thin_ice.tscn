@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/hazard_thin_ice.gd" id="1_thin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thin"]
+size = Vector2(64, 32)
+
+[node name="ThinIce" type="Area2D"]
+script = ExtResource("1_thin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_thin")
+
+[node name="Ice" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-32, -16, 32, -16, 32, 16, -32, 16)
+color = Color(0.55, 0.85, 0.95, 1)
+
+[node name="CrackLeft" type="Line2D" parent="."]
+points = PackedVector2Array(-24, -16, -16, -4, -22, 6, -12, 16)
+width = 2.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="CrackRight" type="Line2D" parent="."]
+points = PackedVector2Array(8, -16, 2, -2, 12, 4, 4, 16)
+width = 2.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

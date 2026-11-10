@@ -1,0 +1,184 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/seal_mom.gd" id="1_mom"]
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyPivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [Vector2(1, 1), Vector2(1.03, 0.97), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HeadPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.0, -0.05, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlipperPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transition": PackedFloat32Array(1, 1, 1),
+"update": PackedInt32Array(0, 0, 0),
+"values": [0.04, -0.03, 0.04]
+}
+
+[sub_resource type="Animation" id="Animation_wave"]
+resource_name = "wave"
+length = 0.5
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlipperPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.25, 0.38, 0.5),
+"transition": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0, 0),
+"values": [0.0, 0.7, -0.35, 0.55, 0.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HeadPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.25, 0.38, 0.5),
+"transition": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": PackedInt32Array(0, 0, 0, 0, 0),
+"values": [0.0, -0.1, 0.06, -0.08, -0.05]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mom"]
+_data = {
+&"idle": SubResource("Animation_idle"),
+&"wave": SubResource("Animation_wave")
+}
+
+[node name="MomSeal" type="Node2D"]
+script = ExtResource("1_mom")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+callback_mode_process = 1
+libraries = {
+"": SubResource("AnimationLibrary_mom")
+}
+
+[node name="BodyPivot" type="Node2D" parent="."]
+scale = Vector2(1.6, 1.6)
+
+[node name="VisualSlot" type="Node2D" parent="BodyPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="BodyPivot/VisualSlot"]
+
+[node name="BodyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Body" type="Polygon2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
+color = Color(0.827451, 0.870588, 0.909804, 1)
+
+[node name="BellyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(-20, 4, -19, 10, -14, 15, -4, 17, 8, 17, 18, 14, 23, 9, 24, 4, 21, 1, 10, 0, -4, 0, -15, 2)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Belly" type="Polygon2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(-20, 4, -19, 10, -14, 15, -4, 17, 8, 17, 18, 14, 23, 9, 24, 4, 21, 1, 10, 0, -4, 0, -15, 2)
+color = Color(0.964706, 0.984314, 1, 1)
+
+[node name="HeadPivot" type="Node2D" parent="."]
+position = Vector2(0, -29)
+scale = Vector2(1.6, 1.6)
+
+[node name="VisualSlot" type="Node2D" parent="HeadPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="HeadPivot/VisualSlot"]
+
+[node name="HeadOutline" type="Line2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Head" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
+color = Color(0.827451, 0.870588, 0.909804, 1)
+
+[node name="HeadShadow" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(-3, -5, 0, -2, 8, -2, 14, -4, 10, -7, 2, -7)
+color = Color(0.498039, 0.658824, 0.752941, 1)
+
+[node name="Eye" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(8.5, -14, 8.03, -12.25, 6.75, -10.97, 5, -10.5, 3.25, -10.97, 1.97, -12.25, 1.5, -14, 1.97, -15.75, 3.25, -17.03, 5, -17.5, 6.75, -17.03, 8.03, -15.75)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="EyeHighlight" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(5.3, -15, 5.13, -14.35, 4.65, -13.87, 4, -13.7, 3.35, -13.87, 2.87, -14.35, 2.7, -15, 2.87, -15.65, 4.13, -16.13, 4.65, -16.3, 5.3, -16.3, 5.87, -15.85, 5.65, -15)
+color = Color(0.984314, 0.992157, 1, 1)
+
+[node name="Nose" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(25.5, -9, 24.67, -10.25, 23.25, -11.67, 23, -12.5, 22.75, -11.67, 21.34, -10.25, 20.5, -9, 21.34, -7.75, 22.75, -6.34, 23, -6.5, 23.25, -6.34, 24.67, -7.75)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Whisker1" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -13, 44, -12, 44, -10.8, 20, -11.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Whisker2" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -10, 43, -6, 43, -4.8, 20, -8.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="Whisker3" type="Polygon2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(20, -7, 42, -2, 42, -0.8, 20, -5.8)
+color = Color(0.168627, 0.227451, 0.278431, 1)
+
+[node name="FlipperPivot" type="Node2D" parent="."]
+position = Vector2(20, 8)
+scale = Vector2(1.6, 1.6)
+
+[node name="VisualSlot" type="Node2D" parent="FlipperPivot"]
+
+[node name="PolygonPuppet" type="Node2D" parent="FlipperPivot/VisualSlot"]
+
+[node name="FlipperOutline" type="Line2D" parent="FlipperPivot/VisualSlot/PolygonPuppet"]
+points = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)
+closed = true
+width = 3.0
+default_color = Color(0.168627, 0.227451, 0.278431, 1)
+joint_mode = 2
+
+[node name="Flipper" type="Polygon2D" parent="FlipperPivot/VisualSlot/PolygonPuppet"]
+polygon = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)
+color = Color(0.498039, 0.658824, 0.752941, 1)

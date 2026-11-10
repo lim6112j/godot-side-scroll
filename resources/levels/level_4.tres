@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+level_index = 4
+length_px = 4200.0
+flat_max_gap_px = 92.0
+recoil_max_gap_px = 150.0
+enemy_density = 8.0
+hazard_count = 8
+checkpoint_count = 1
+enemy_mix = Array[String](["crab", "seagull"])
+allows_thin_ice = true
+allows_icicle = false
+allows_water = true
+has_time_pressure = false
+swat_wall_count = 3
+recoil_gap_count = 3
+seed_value = 404
