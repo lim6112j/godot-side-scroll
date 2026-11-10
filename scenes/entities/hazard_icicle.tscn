@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/hazard_icicle.gd" id="1_icicle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hazards/icicle.png" id="2_icicle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icicle"]
 size = Vector2(20, 48)
@@ -12,11 +13,18 @@ script = ExtResource("1_icicle")
 position = Vector2(0, 24)
 shape = SubResource("RectangleShape2D_icicle")
 
+[node name="IcicleSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 24)
+scale = Vector2(2.5, 0.84)
+texture = ExtResource("2_icicle")
+
 [node name="Stalk" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-10, 0, 10, 0, 10, 44, 0, 48, -10, 44)
 color = Color(0.55, 0.85, 0.95, 1)
 
 [node name="Shine" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-4, 8, 0, 8, -2, 40, -6, 40)
 color = Color(0.85, 0.93, 1, 1)
 

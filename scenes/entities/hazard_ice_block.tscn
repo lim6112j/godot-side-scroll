@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/hazard_ice_block.gd" id="1_block"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hazards/ice_block.png" id="2_block"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_block"]
 size = Vector2(32, 100)
@@ -11,7 +12,12 @@ script = ExtResource("1_block")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_block")
 
+[node name="BlockSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.76, 1.85)
+texture = ExtResource("2_block")
+
 [node name="Body" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-16, -50, 16, -50, 16, 50, -16, 50)
 color = Color(0.75, 0.87, 0.97, 1)
 

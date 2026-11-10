@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemy_seagull.gd" id="1_gull"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/seagull_1.png" id="2_gull1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gull"]
 size = Vector2(36, 28)
@@ -11,26 +12,37 @@ script = ExtResource("1_gull")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gull")
 
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_gull1")
+
+
 [node name="Body" type="Polygon2D" parent="."]
+visible = false
+visible = false
 polygon = PackedVector2Array(-18, 0, -14, -6, -4, -9, 8, -8, 16, -5, 18, 0, 14, 6, 2, 8, -12, 6)
 color = Color(0.984314, 0.992157, 1, 1)
 
 [node name="Head" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(8, -8, 16, -11, 20, -9, 18, -4, 10, -4)
 color = Color(0.984314, 0.992157, 1, 1)
 
 [node name="Beak" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(18, -8, 26, -7, 26, -5, 18, -5)
 color = Color(0.85098, 0.764706, 0.682353, 1)
 
 [node name="WingUp" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-6, -6, 4, -18, 12, -14, 6, -5)
 color = Color(0.788235, 0.839216, 0.886275, 1)
 
 [node name="WingDown" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-4, 4, 4, 14, 12, 10, 6, 3)
 color = Color(0.662745, 0.737255, 0.796078, 1)
 
 [node name="Eye" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(14, -10, 16.5, -10, 16.5, -8, 14, -8)
 color = Color(0.168627, 0.227451, 0.278431, 1)

@@ -1,8 +1,16 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/seal_baby.gd" id="1_seal"]
 [ext_resource type="Script" path="res://scripts/seal_anim.gd" id="2_anim"]
 [ext_resource type="Script" path="res://scripts/seal_swat.gd" id="3_swat"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_body.png" id="4_body"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_belly.png" id="5_belly"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_head.png" id="6_head"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_face.png" id="7_face"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_whiskers.png" id="8_whiskers"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_tail.png" id="9_tail"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_flipper_front.png" id="10_flipper_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/seal/baby_flipper_back.png" id="11_flipper_back"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seal"]
 size = Vector2(48, 32)
@@ -353,6 +361,20 @@ shape = SubResource("RectangleShape2D_swat")
 [node name="VisualSlot" type="Node2D" parent="BodyPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="BodyPivot/VisualSlot"]
+visible = false
+
+[node name="BodySprite" type="Sprite2D" parent="BodyPivot/VisualSlot"]
+rotation = 1.5708
+# 방위 보정: 회전이 스케일보다 늦게 적용되므로 세운 그림을 눕히려면 x/y 배율을 서로 바꿔 쓴다.
+scale = Vector2(1.143, 1.116)
+texture = ExtResource("4_body")
+
+[node name="BellySprite" type="Sprite2D" parent="BodyPivot/VisualSlot"]
+rotation = 1.5708
+position = Vector2(2, 8)
+scale = Vector2(0.85, 0.4)
+texture = ExtResource("5_belly")
+z_index = -1
 
 [node name="BodyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
@@ -386,6 +408,27 @@ position = Vector2(0, -18)
 [node name="VisualSlot" type="Node2D" parent="HeadPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="HeadPivot/VisualSlot"]
+visible = false
+
+[node name="HeadSprite" type="Sprite2D" parent="HeadPivot/VisualSlot"]
+# 머리 그림은 왼쪽을 보고 나오므로 게임 방향(오른쪽)에 맞춰 좌우 반전한다.
+# 머리가 몸 앞쪽(오른쪽)으로 살짝 나가도록 오프셋을 준다.
+position = Vector2(6, 0)
+scale = Vector2(0.62, 0.62)
+flip_h = true
+texture = ExtResource("6_head")
+
+[node name="FaceSprite" type="Sprite2D" parent="HeadPivot/VisualSlot"]
+# 머리 스프라이트에 눈·코가 포함되어 있다. 얼굴 오버레이는 중복이라 숨긴다.
+visible = false
+position = Vector2(2, 2)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("7_face")
+
+[node name="WhiskerSprite" type="Sprite2D" parent="HeadPivot/VisualSlot"]
+position = Vector2(4, 2)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("8_whiskers")
 
 [node name="HeadOutline" type="Line2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
@@ -436,6 +479,11 @@ position = Vector2(-20, 4)
 [node name="VisualSlot" type="Node2D" parent="TailPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="TailPivot/VisualSlot"]
+visible = false
+
+[node name="TailSprite" type="Sprite2D" parent="TailPivot/VisualSlot"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_tail")
 
 [node name="TailOutline" type="Line2D" parent="TailPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(0, -7, -12, -13, -26, -12, -37, -5, -40, 0, -37, 5, -26, 11, -12, 12, -4, 2, 0, 7)
@@ -454,6 +502,11 @@ position = Vector2(6, 2)
 [node name="VisualSlot" type="Node2D" parent="FlipperFrontPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="FlipperFrontPivot/VisualSlot"]
+visible = false
+
+[node name="FlipperSprite" type="Sprite2D" parent="FlipperFrontPivot/VisualSlot"]
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("10_flipper_front")
 
 [node name="FlipperFrontOutline" type="Line2D" parent="FlipperFrontPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)
@@ -472,6 +525,11 @@ position = Vector2(4, 2)
 [node name="VisualSlot" type="Node2D" parent="FlipperBackPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="FlipperBackPivot/VisualSlot"]
+visible = false
+
+[node name="FlipperSprite" type="Sprite2D" parent="FlipperBackPivot/VisualSlot"]
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("11_flipper_back")
 
 [node name="FlipperBackOutline" type="Line2D" parent="FlipperBackPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(0, -3, -7, -2, -15, 1, -20, 6, -17, 10, -9, 11, -2, 9, 1, 4)

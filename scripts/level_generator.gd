@@ -107,6 +107,15 @@ const SCENE_CRAB := preload("res://scenes/entities/enemy_crab.tscn")
 const SCENE_SEAGULL := preload("res://scenes/entities/enemy_seagull.tscn")
 # 빙산 씬 (태스크 13). has_time_pressure 가 true 인 레벨의 시간 압박.
 const SCENE_ICEBERG := preload("res://scenes/entities/iceberg.tscn")
+
+const TEX_GROUND := preload("res://assets/sprites/env/ground_tile.png")
+const TEX_PLATFORM := preload("res://assets/sprites/env/platform_tile.png")
+const TEX_MOM_FLOE := preload("res://assets/sprites/env/mom_floe.png")
+
+# 엄마 빙하 표시 크기. 스프라이트의 불투명 영역이 112×94 이므로 그 기준으로
+# 스케일을 환산한다.
+const MOM_FLOE_WIDTH := 160.0
+const MOM_FLOE_HEIGHT := 64.0
 const ICEBERG_SPEED := 40.0             # px/s, 왼쪽→오른쪽
 # iceberg.tscn 의 CollisionShape2D·폴리곤 높이와 같아야 한다: 노드 원점을 지면
 # 표면(y=0) 위에 세우려면 반높이만큼 올려 두기 때문이다. 폭은 위치를 정하는 데
@@ -557,6 +566,14 @@ func _place_goal(data: LevelData, parent: Node2D) -> float:
 	var goal_x := data.length_px - GOAL_MARGIN
 	var node := _marker(parent, "Goal", GROUP_GOAL, Vector2(goal_x, -GOAL_HEIGHT * 0.5), COLOR_MARK, 18.0)
 	node.set_meta("level_index", data.level_index)
+	# 엄마가 서는 빙하. 지면 표면(y=0) 위에 올려서 엄마와 같은 바닥선을 쓴다.
+	var floe := Sprite2D.new()
+	floe.name = "MomFloe"
+	floe.texture = TEX_MOM_FLOE
+	floe.position = Vector2(goal_x, -MOM_FLOE_HEIGHT * 0.5)
+	floe.scale = Vector2(MOM_FLOE_WIDTH / 112.0, MOM_FLOE_HEIGHT / 94.0)
+	floe.z_index = -1
+	parent.add_child(floe)
 	return goal_x
 
 
@@ -580,6 +597,7 @@ func _add_ground(parent: Node2D, x0: float, x1: float, is_support: bool = false)
 	body.position = Vector2(x0 + w * 0.5, GROUND_THICKNESS * 0.5)
 	body.add_child(_collision(Vector2(w, GROUND_THICKNESS)))
 	body.add_child(_box(w, GROUND_THICKNESS, COLOR_GROUND))
+	body.add_child(_tile_sprite(TEX_GROUND, w, GROUND_THICKNESS))
 	parent.add_child(body)
 	return body
 
@@ -653,6 +671,7 @@ func _add_platform_at(parent: Node2D, x: float, y: float) -> void:
 	body.position = Vector2(x, y + PLATFORM_THICKNESS * 0.5)
 	body.add_child(_collision(Vector2(PLATFORM_WIDTH, PLATFORM_THICKNESS)))
 	body.add_child(_box(PLATFORM_WIDTH, PLATFORM_THICKNESS, COLOR_PLATFORM))
+	body.add_child(_tile_sprite(TEX_PLATFORM, PLATFORM_WIDTH, PLATFORM_THICKNESS))
 	parent.add_child(body)
 
 
@@ -790,6 +809,19 @@ func _box(w: float, h: float, color: Color) -> Polygon2D:
 		Vector2(w * 0.5, h * 0.5), Vector2(-w * 0.5, h * 0.5)])
 	poly.color = color
 	return poly
+
+
+# 지면/플랫폼 타일 스프라이트를 직사각형에 맞춰 늘려 깐다. 타일 아래의
+# COLOR_GROUND/COLOR_PLATFORM 박스가 그대로 남아 있어, 스프라이트의 투명
+# 여백(불투명 bbox 54×35)은 박스 색이 메운다.
+func _tile_sprite(tex: Texture2D, w: float, h: float) -> Sprite2D:
+	var sprite := Sprite2D.new()
+	sprite.name = "TileSprite"
+	sprite.texture = tex
+	sprite.centered = false
+	sprite.position = Vector2(-w * 0.5, -h * 0.5)
+	sprite.scale = Vector2(w / 64.0, h / 64.0)
+	return sprite
 
 
 # ----------------------------------------------------------------------- 유틸

@@ -10,9 +10,10 @@ extends CanvasLayer
 # 좌표 규칙: y+는 아래(Engine rule 2). 하트는 왼쪽 위에서 오른쪽으로 놓인다.
 
 const HEART_SIZE := Vector2(16.0, 16.0)
-const HEART_COLOR := Color(0.91, 0.32, 0.36, 1.0)
-# 하트 도형은 heart.png 자리를 채우는 임시 색면이다. Task 14에서 하트 하나당
-# 노드 하나로 스프라이트를 갈아끼운다 (컨테이너 구조는 그대로 쓴다).
+const HEART_TEXTURE := preload("res://assets/sprites/ui/heart.png")
+# 하트는 ui/heart.png 스프라이트를 그대로 꽂는다. 하트 하나당 TextureRect
+# 하나이며, 컨테이너 구조는 예전 색면 임시 구조와 같으므로 set_hearts 흐름은
+# 그대로 유지된다.
 
 @onready var _heart_box: HBoxContainer = $HeartBox
 @onready var _level_label: Label = $LevelLabel
@@ -45,9 +46,11 @@ func set_hearts(value: int) -> void:
         _heart_box.remove_child(child)
         child.queue_free()
     for _i in value:
-        var heart := ColorRect.new()
+        var heart := TextureRect.new()
+        heart.texture = HEART_TEXTURE
         heart.custom_minimum_size = HEART_SIZE
-        heart.color = HEART_COLOR
+        heart.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+        heart.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
         _heart_box.add_child(heart)
 
 

@@ -1,6 +1,9 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/seal_mom.gd" id="1_mom"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mom/mom_body.png" id="2_body"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mom/mom_head.png" id="4_head"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mom/mom_flipper.png" id="6_flipper"]
 
 [sub_resource type="Animation" id="Animation_idle"]
 resource_name = "idle"
@@ -94,6 +97,12 @@ scale = Vector2(1.6, 1.6)
 [node name="VisualSlot" type="Node2D" parent="BodyPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="BodyPivot/VisualSlot"]
+visible = false
+
+[node name="BodySprite" type="Sprite2D" parent="BodyPivot/VisualSlot"]
+rotation = 1.5708
+scale = Vector2(1.5, 0.9)
+texture = ExtResource("2_body")
 
 [node name="BodyOutline" type="Line2D" parent="BodyPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(24, -6, 20, -15, 8, -16, -8, -15, -20, -10, -24, 0, -20, 10, -8, 15, 10, 16, 22, 8)
@@ -124,6 +133,11 @@ scale = Vector2(1.6, 1.6)
 [node name="VisualSlot" type="Node2D" parent="HeadPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="HeadPivot/VisualSlot"]
+visible = false
+
+[node name="HeadSprite" type="Sprite2D" parent="HeadPivot/VisualSlot"]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("4_head")
 
 [node name="HeadOutline" type="Line2D" parent="HeadPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(6, -27, 16, -28, 23, -23, 25, -15, 25, -8, 19, -3, 9, -1, 0, 0, -5, -4, -5, -13, -2, -21)
@@ -171,6 +185,11 @@ scale = Vector2(1.6, 1.6)
 [node name="VisualSlot" type="Node2D" parent="FlipperPivot"]
 
 [node name="PolygonPuppet" type="Node2D" parent="FlipperPivot/VisualSlot"]
+visible = false
+
+[node name="FlipperSprite" type="Sprite2D" parent="FlipperPivot/VisualSlot"]
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("6_flipper")
 
 [node name="FlipperOutline" type="Line2D" parent="FlipperPivot/VisualSlot/PolygonPuppet"]
 points = PackedVector2Array(0, -3, 6, -4, 14, -2, 20, 2, 22, 7, 18, 12, 10, 13, 3, 11, -1, 6)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/hazard_thin_ice.gd" id="1_thin"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hazards/thin_ice.png" id="2_thin_ice"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thin"]
 size = Vector2(64, 32)
@@ -11,7 +12,12 @@ script = ExtResource("1_thin")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_thin")
 
+[node name="IceSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.14, 0.67)
+texture = ExtResource("2_thin_ice")
+
 [node name="Ice" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-32, -16, 32, -16, 32, 16, -32, 16)
 color = Color(0.55, 0.85, 0.95, 1)
 

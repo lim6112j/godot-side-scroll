@@ -1,11 +1,24 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="Script" path="res://scripts/camera_follow.gd" id="2_camera"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/env/background_far.png" id="4_bg"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_level")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("4_bg")
+centered = false
+offset = Vector2(0, 36)
+scale = Vector2(1.25, 1.25)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_camera")
